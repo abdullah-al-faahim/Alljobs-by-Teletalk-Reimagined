@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Alljobs Reimagined — Android app for Bangladesh government jobs</title>
+  <meta name="description" content="Download the Alljobs by Teletalk Reimagined Android app: live government job circulars, admit cards, results, notices and alerts from alljobs.teletalk.com.bd." />
+  <meta name="theme-color" content="#007456" />
+  <link rel="icon" type="image/png" href="assets/icon.png" />
+  <link rel="apple-touch-icon" href="assets/icon.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Alljobs Reimagined — Android app" />
+  <meta property="og:description" content="Live government job circulars, admit cards, results and notices from Bangladesh, with alerts and your Alljobs profile." />
+  <meta property="og:image" content="https://abdullah-al-faahim.github.io/Alljobs-by-Teletalk-Reimagined/assets/screen-home.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --brand: #007456; --brand-2: #005f47; --lime: #76d200; --lime-ink: #173300;
+      --ink: #14201b; --ink-2: #4b5a54; --ink-3: #7c8a84; --line: #e2eae6;
+      --bg: #f5f8f6; --card: #ffffff; --soft: #e8f5f0;
+      --shadow: 0 1px 2px rgba(16,40,32,.06), 0 8px 28px rgba(16,40,32,.08);
+      color-scheme: light;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --brand: #19a37e; --brand-2: #3cc39d; --lime: #8fe31c; --lime-ink: #142a00;
+        --ink: #e9f1ee; --ink-2: #b2c1bb; --ink-3: #82928c; --line: #24312d;
+        --bg: #0c1412; --card: #131d1a; --soft: #10302a;
+        --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 28px rgba(0,0,0,.35);
+        color-scheme: dark;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: 'Plus Jakarta Sans', system-ui, -apple-system, 'Segoe UI', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    img { max-width: 100%; display: block; }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+    /* nav */
+    nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+    nav .wrap { display: flex; align-items: center; gap: 12px; height: 64px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; text-decoration: none; letter-spacing: -.01em; }
+    .brand img { width: 34px; height: 34px; border-radius: 9px; background: #fff; }
+    nav .links { margin-left: auto; display: flex; gap: 22px; font-size: 14px; font-weight: 600; color: var(--ink-2); }
+    nav .links a { text-decoration: none; }
+    nav .links a:hover { color: var(--brand); }
+    @media (max-width: 720px) { nav .links .hide-sm { display: none; } }
+
+    /* buttons */
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; height: 54px; padding: 0 26px; border-radius: 14px; font-weight: 800; font-size: 16px; text-decoration: none; transition: transform .12s, background .2s, box-shadow .2s; white-space: nowrap; }
+    .btn:active { transform: scale(.98); }
+    .btn-primary { background: var(--brand); color: #fff; box-shadow: 0 10px 24px color-mix(in srgb, var(--brand) 35%, transparent); }
+    .btn-primary:hover { background: var(--brand-2); }
+    .btn-ghost { border: 1.5px solid var(--line); color: var(--ink); background: var(--card); }
+    .btn-ghost:hover { border-color: var(--brand); color: var(--brand); }
+    .btn svg { flex-shrink: 0; }
+    .btn-sm { height: 40px; padding: 0 16px; font-size: 14px; border-radius: 11px; }
+
+    /* hero */
+    header.hero { position: relative; overflow: hidden; padding: 64px 0 40px; }
+    header.hero::before { content: ''; position: absolute; inset: -40% -10% auto auto; width: 620px; height: 620px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--lime) 30%, transparent), transparent 65%); pointer-events: none; }
+    .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; position: relative; }
+    @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; text-align: center; } .hero-cta, .meta { justify-content: center; } }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 99px; background: var(--soft); color: var(--brand); font-size: 13px; font-weight: 700; }
+    h1 { font-size: clamp(34px, 5.4vw, 58px); line-height: 1.06; letter-spacing: -.035em; margin: 18px 0 16px; font-weight: 800; }
+    h1 .hl { color: var(--brand); }
+    .lead { font-size: clamp(16px, 2vw, 19px); color: var(--ink-2); max-width: 560px; margin: 0 0 28px; }
+    @media (max-width: 900px) { .lead { margin-left: auto; margin-right: auto; } }
+    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+    .meta { display: flex; gap: 8px 18px; flex-wrap: wrap; margin-top: 18px; font-size: 13.5px; color: var(--ink-3); font-weight: 600; }
+    .meta span { display: inline-flex; align-items: center; gap: 6px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 0 4px color-mix(in srgb, var(--lime) 25%, transparent); }
+
+    .phones { position: relative; height: 560px; }
+    .phone { position: absolute; width: 250px; border-radius: 34px; padding: 9px; background: #0e1513; box-shadow: 0 30px 60px rgba(0,0,0,.28), inset 0 0 0 2px #2a3330; }
+    .phone img { border-radius: 26px; width: 100%; }
+    .phone.p1 { left: 50%; top: 0; transform: translateX(-80%) rotate(-5deg); z-index: 2; }
+    .phone.p2 { left: 50%; top: 40px; transform: translateX(-5%) rotate(5deg); }
+    @media (max-width: 900px) { .phones { height: 470px; } .phone { width: 210px; } }
+    @media (max-width: 480px) { .phones { height: 400px; } .phone { width: 175px; } }
+
+    /* sections */
+    section { padding: 72px 0; }
+    .sec-head { text-align: center; max-width: 680px; margin: 0 auto 40px; }
+    h2 { font-size: clamp(26px, 3.6vw, 38px); letter-spacing: -.025em; margin: 0 0 10px; line-height: 1.15; }
+    .sec-head p { color: var(--ink-2); margin: 0; font-size: 17px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 22px; box-shadow: var(--shadow); }
+    .card h3 { margin: 14px 0 6px; font-size: 17px; letter-spacing: -.01em; }
+    .card p { margin: 0; color: var(--ink-2); font-size: 15px; }
+    .ico { width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; background: var(--soft); color: var(--brand); }
+
+    .gallery { display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 6px 4px 18px; justify-content: center; scrollbar-width: thin; }
+    .gallery figure { margin: 0; flex: 0 0 auto; width: 230px; scroll-snap-align: center; text-align: center; }
+    .gallery img { border-radius: 24px; border: 8px solid #0e1513; box-shadow: var(--shadow); }
+    .gallery figcaption { margin-top: 10px; font-size: 14px; font-weight: 600; color: var(--ink-2); }
+    @media (max-width: 1000px) { .gallery { justify-content: flex-start; } }
+
+    .steps { counter-reset: s; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 800px) { .steps { grid-template-columns: 1fr; } }
+    .step { position: relative; padding-top: 58px; }
+    .step::before { counter-increment: s; content: counter(s); position: absolute; top: 18px; left: 22px; width: 32px; height: 32px; border-radius: 10px; background: var(--brand); color: #fff; font-weight: 800; display: grid; place-items: center; }
+
+    .download { background: linear-gradient(135deg, #00624a, #007456 55%, #1f8f4a); color: #fff; border-radius: 28px; padding: 44px 28px; text-align: center; position: relative; overflow: hidden; }
+    .download::after { content: ''; position: absolute; right: -80px; top: -80px; width: 280px; height: 280px; border-radius: 50%; background: radial-gradient(circle, rgba(118,210,0,.45), transparent 70%); }
+    .download > * { position: relative; z-index: 1; }
+    .download h2 { color: #fff; }
+    .download p { opacity: .9; margin: 0 0 24px; }
+    .download .btn-primary { background: var(--lime); color: var(--lime-ink); box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+    .download .btn-primary:hover { background: #8ae61a; }
+    .download .small { font-size: 13px; opacity: .8; margin-top: 16px; }
+    .fp { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; word-break: break-all; background: rgba(255,255,255,.12); padding: 3px 8px; border-radius: 6px; }
+
+    details { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 4px 20px; margin-bottom: 10px; }
+    summary { cursor: pointer; font-weight: 700; padding: 14px 0; list-style: none; display: flex; justify-content: space-between; gap: 10px; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: '+'; color: var(--brand); font-size: 22px; line-height: 1; }
+    details[open] summary::after { content: '−'; }
+    details p { margin: 0 0 16px; color: var(--ink-2); }
+    .faq { max-width: 760px; margin: 0 auto; }
+
+    footer { border-top: 1px solid var(--line); padding: 32px 0 48px; color: var(--ink-3); font-size: 13.5px; }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; align-items: center; }
+    footer a { color: var(--ink-2); font-weight: 600; text-decoration: none; }
+    footer a:hover { color: var(--brand); }
+    :focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <nav aria-label="Main">
+    <div class="wrap">
+      <a class="brand" href="#top"><img src="assets/icon.png" alt="" />Alljobs Reimagined</a>
+      <div class="links">
+        <a class="hide-sm" href="#features">Features</a>
+        <a class="hide-sm" href="#install">Install</a>
+        <a class="hide-sm" href="#faq">FAQ</a>
+        <a href="https://github.com/abdullah-al-faahim/Alljobs-by-Teletalk-Reimagined/releases">Releases</a>
+      </div>
+      <a class="btn btn-primary btn-sm" href="https://github.com/abdullah-al-faahim/Alljobs-by-Teletalk-Reimagined/releases/latest/download/Alljobs-Reimagined.apk" data-dl>Download</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow"><span class="dot"></span><span id="liveJobs">Live government jobs from Alljobs</span></span>
+        <h1>Every <span class="hl">government job</span> in Bangladesh, in your pocket.</h1>
+        <p class="lead">Circulars, admit cards, results and notices from alljobs.teletalk.com.bd, with alerts for new jobs, deadline reminders and your Alljobs profile, all in one fast Android app.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="https://github.com/abdullah-al-faahim/Alljobs-by-Teletalk-Reimagined/releases/latest/download/Alljobs-Reimagined.apk" data-dl>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 9.48l1.84-3.18a.5.5 0 10-.87-.5l-1.87 3.23A11.5 11.5 0 0012 8a11.5 11.5 0 00-4.7.99L5.43 5.8a.5.5 0 10-.87.5L6.4 9.48A10.8 10.8 0 001 18h22a10.8 10.8 0 00-5.4-8.52zM7 15.25a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zm10 0a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5z"/></svg>
+            Download for Android
+          </a>
+          <a class="btn btn-ghost" href="#features">See features</a>
+        </div>
+        <div class="meta">
+          <span id="ver">Latest version</span>
+          <span id="size"></span>
+          <span>Android 7.0+</span>
+          <span>Free</span>
+        </div>
+      </div>
+      <div class="phones" aria-hidden="true">
+        <div class="phone p1"><img src="assets/screen-home.png" alt="" /></div>
+        <div class="phone p2"><img src="assets/screen-alerts.png" alt="" /></div>
+      </div>
+    </div>
+  </header>
+
+  <section id="features">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Everything Alljobs has, made for your phone</h2>
+        <p>Fast, simple and always up to date, in English or বাংলা.</p>
+      </div>
+      <div class="grid">
+        <div class="card"><div class="ico"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg></div><h3>Live government jobs</h3><p>Every circular by organisation or by post. Search in English or Bangla, and filter by new today, deadline today or closing soon.</p></div>
+        <div class="card"><div class="ico"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg></div><h3>Alerts that matter</h3><p>Important notices, new circulars from organisations you follow, and a reminder 24 hours before a saved job closes, even with the app closed.</p></div>
+        <div class="card"><div class="ico"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 15l2 2 4-4"/></svg></div><h3>Smart job details</h3><p>Deadline countdown, the circular PDF, a check that you're within the age limit, and step-by-step help with the Teletalk application and SMS fee.</p></div>
+        <div class="card"><div class="ico"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0112 0v1"/></svg></div><h3>Your Alljobs account</h3><p>Sign in to see your full profile, your All Jobs User ID with a copy button, your wishlist and followed organisations, all synced with the website.</p></div>
+        <div class="card"><div class="ico"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 7V3m8 4V3M3 11h18M5 5h14a2 2 0 012 2v12a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z"/></svg></div><h3>Admit cards & results</h3><p>See admit cards, results and notices in one place, and track each application from fee payment to exam to result.</p></div>
+        <div class="card"><div class="ico"><svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12a9 9 0 11-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></div><h3>Updates itself</h3><p>The app tells you when a new version is out, checks the download is genuine, and installs it in a couple of taps.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="gallery">
+        <figure><img src="assets/screen-home.png" alt="Home screen with live job counts and urgent notice" loading="lazy" /><figcaption>Live jobs at a glance</figcaption></figure>
+        <figure><img src="assets/screen-alerts.png" alt="Notifications inbox" loading="lazy" /><figcaption>Your alerts</figcaption></figure>
+        <figure><img src="assets/screen-notice.png" alt="Notice details with PDF attachment" loading="lazy" /><figcaption>Notices & PDFs</figcaption></figure>
+        <figure><img src="assets/screen-update.png" alt="In-app update prompt" loading="lazy" /><figcaption>One-tap updates</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="install">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Install in a minute</h2>
+        <p>The app isn't on the Play Store yet, so you install it straight from here.</p>
+      </div>
+      <div class="steps">
+        <div class="card step"><h3>Download</h3><p>On your Android phone, tap <b>Download for Android</b>. The file is about <span data-size>4 MB</span>.</p></div>
+        <div class="card step"><h3>Allow the install</h3><p>Open <b>Alljobs-Reimagined.apk</b>. If Android asks, allow <b>Install unknown apps</b> for your browser or file manager.</p></div>
+        <div class="card step"><h3>You're set</h3><p>Tap <b>Install</b>, open Alljobs and turn on notifications. Future updates arrive inside the app.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="download">
+        <h2>Get Alljobs Reimagined</h2>
+        <p id="dlText">Free for Android 7.0 and newer.</p>
+        <a class="btn btn-primary" href="https://github.com/abdullah-al-faahim/Alljobs-by-Teletalk-Reimagined/releases/latest/download/Alljobs-Reimagined.apk" data-dl>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14"/></svg>
+          Download APK
+        </a>
+        <p class="small">Signed with the certificate <span class="fp">d42036a30767866cdd84c207c1527382ec25577a8f8f620d8f82cdcf51774106</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head"><h2>Questions</h2></div>
+      <div class="faq">
+        <details><summary>Is this the official Teletalk app?</summary><p>No. It's an independent concept app. It shows the same public job, notice and result information as alljobs.teletalk.com.bd, and you apply on the official Teletalk application sites.</p></details>
+        <details><summary>Is it safe to install from outside the Play Store?</summary><p>Every version is signed with the same key, and Android only installs updates signed with that key. The in-app updater downloads only from this project's GitHub releases and checks the file's fingerprint before installing.</p></details>
+        <details><summary>Can I use my existing Alljobs account?</summary><p>Yes. Sign in with the email or mobile number and password you use on alljobs.teletalk.com.bd. Your password goes only to alljobs.teletalk.com.bd; the app keeps just your sign-in session on your phone.</p></details>
+        <details><summary>How do I update the app?</summary><p>You don't have to do anything. The app checks for new versions and offers to install them. You can also check any time from Profile → Settings → App version.</p></details>
+        <details><summary>Does it cost anything?</summary><p>The app is free. Job application fees are paid to Teletalk as shown in each circular, never through this app.</p></details>
+        <details><summary>I found a bug or have an idea.</summary><p><a href="https://github.com/abdullah-al-faahim/Alljobs-by-Teletalk-Reimagined/issues">Open an issue on GitHub</a>. Feedback is welcome.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <span>Unofficial concept work. Not affiliated with, or endorsed by, Teletalk Bangladesh Ltd.</span>
+      <span style="display:flex;gap:18px;flex-wrap:wrap">
+        <a href="https://github.com/abdullah-al-faahim/Alljobs-by-Teletalk-Reimagined/releases">All releases</a>
+        <a href="https://github.com/abdullah-al-faahim/Alljobs-by-Teletalk-Reimagined/issues">Report an issue</a>
+        <a href="https://alljobs.teletalk.com.bd/">alljobs.teletalk.com.bd</a>
+      </span>
+    </div>
+  </footer>
+
+  <script>
+    // Show the live latest version and size from GitHub, and the live job count from Alljobs. The page works without them.
+    (async () => {
+      try {
+        const r = await fetch('https://api.github.com/repos/abdullah-al-faahim/Alljobs-by-Teletalk-Reimagined/releases/latest');
+        if (!r.ok) return;
+        const rel = await r.json();
+        const apk = (rel.assets || []).find(a => a.name.toLowerCase().endsWith('.apk'));
+        const v = String(rel.tag_name || '').replace(/^v/, '');
+        const date = new Date(rel.published_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+        if (v) document.getElementById('ver').textContent = `Version ${v} · ${date}`;
+        if (apk) {
+          const mb = (apk.size / 1048576).toFixed(1) + ' MB';
+          document.getElementById('size').textContent = mb;
+          document.querySelectorAll('[data-size]').forEach(el => el.textContent = mb);
+          document.getElementById('dlText').textContent = `Version ${v} · ${mb} · Free for Android 7.0 and newer.`;
+          document.querySelectorAll('[data-dl]').forEach(a => a.href = apk.browser_download_url);
+        }
+      } catch (e) { /* keep defaults */ }
+      try {
+        const r = await fetch('https://alljobs.teletalk.com.bd/api/v1/published-jobs/total-list');
+        const j = await r.json();
+        const n = j && j.details && j.details.totalLiveJobs;
+        if (n) document.getElementById('liveJobs').textContent = `${n} live government jobs right now`;
+      } catch (e) { /* keep default */ }
+    })();
+  </script>
+</body>
+</html>
